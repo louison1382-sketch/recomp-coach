@@ -278,17 +278,15 @@ var BATCH_OPTIONS=[
 
 var PROGRAMS={'4':[
   {dayName:'Lun', rest:false, sessions:[{id:'push', name:'Séance Push', priority:true, muscles:'Pectoraux · Épaules · Triceps', exercises:[{name:'Développé couché',sets:4,reps:'8-10',rest:120,tip:"Omoplates resserrées."},{name:'Développé militaire haltères',sets:3,reps:'8-10',rest:90,tip:'Tronc gainé.'},{name:'Dips',sets:3,reps:'8-10',rest:90,tip:'Buste en avant.'},{name:'Élévations latérales',sets:3,reps:'12-15',rest:60,tip:'Pas de coup de rein.'},{name:'Extension triceps poulie',sets:3,reps:'12-15',rest:60,tip:'Coudes verrouillés.'}]}]},
-  {dayName:'Mar', rest:false, sessions:[{id:'pull', name:'Séance Pull', priority:true, muscles:'Dos · Biceps · Arrière d\'épaule', exercises:[{name:'Tractions',sets:4,reps:'5-8',rest:120,tip:'Leste-toi si besoin.'},{name:'Tirage horizontal (Rowing)',sets:4,reps:'8-10',rest:90,tip:'Vers le nombril.'},{name:'Oiseau ou Face Pull',sets:3,reps:'12-15',rest:60,tip:'Fixe l\'arrière de l\'épaule.'},{name:'Curl biceps',sets:3,reps:'10-12',rest:60,tip:'Contrôle la descente.'}]}]},
+  {dayName:'Mar', rest:false, sessions:[{id:'pull', name:'Séance Pull', priority:true, muscles:"Dos · Biceps · Arrière d'épaule", exercises:[{name:'Tractions',sets:4,reps:'5-8',rest:120,tip:'Leste-toi si besoin.'},{name:'Tirage horizontal (Rowing)',sets:4,reps:'8-10',rest:90,tip:'Vers le nombril.'},{name:'Oiseau ou Face Pull',sets:3,reps:'12-15',rest:60,tip:"Fixe l'arrière de l'épaule."},{name:'Curl biceps',sets:3,reps:'10-12',rest:60,tip:'Contrôle la descente.'}]}]},
   {dayName:'Mer', rest:true, sessions:[], restLabel:'Repos / Trail léger'},
   {dayName:'Jeu', rest:false, sessions:[{id:'legs', name:'Séance Legs', priority:true, muscles:'Quadriceps · Ischios · Mollets', exercises:[{name:'Squat',sets:4,reps:'5-8',rest:120,tip:"Moteur pour les montées."},{name:'Fentes bulgares',sets:3,reps:'8-10',rest:90,tip:'Focus unilatéral.'},{name:'Leg curl (Ischios)',sets:3,reps:'10-12',rest:60,tip:'Protège tes genoux.'},{name:'Extensions mollets',sets:3,reps:'15',rest:60,tip:'Amplitude maximale.'}]}]},
-  {dayName:'Ven', rest:false, sessions:[{id:'full', name:'Full Body & Core', priority:true, muscles:'Chaîne postérieure · Stabilité', exercises:[{name:'Soulevé de terre roumain',sets:4,reps:'8-10',rest:120,tip:'Idéal pour le dénivelé.'},{name:'Step-ups (Montées sur banc)',sets:3,reps:'8-10',rest:90,tip:'Travaille la poussée unilatérale.'},{name:'Développé couché haltères',sets:3,reps:'10-12',rest:90,tip:'Rappel haut du corps.'},{name:'Tirage vertical neutre',sets:3,reps:'10-12',rest:60,tip:'Santé des épaules.'},{name:'Roulette à abdos',sets:3,reps:'10-15',rest:60,tip:'Transfert d\'énergie.'}]}]},
+  {dayName:'Ven', rest:false, sessions:[{id:'full', name:'Full Body & Core', priority:true, muscles:'Chaîne postérieure · Stabilité', exercises:[{name:'Soulevé de terre roumain',sets:4,reps:'8-10',rest:120,tip:'Idéal pour le dénivelé.'},{name:'Step-ups (Montées sur banc)',sets:3,reps:'8-10',rest:90,tip:'Travaille la poussée unilatérale.'},{name:'Développé couché haltères',sets:3,reps:'10-12',rest:90,tip:'Rappel haut du corps.'},{name:'Tirage vertical neutre',sets:3,reps:'10-12',rest:60,tip:'Santé des épaules.'},{name:'Roulette à abdos',sets:3,reps:'10-15',rest:60,tip:"Transfert d'énergie."}]}]},
   {dayName:'Sam', rest:true, sessions:[], restLabel:'Activité Extérieure / Trail'},
   {dayName:'Dim', rest:true, sessions:[], restLabel:'Repos complet'}
 ]};
 
-function radioGroup(cid,opts,sel){var el=document.getElementById(cid);el.innerHTML=opts.map(function(o){return'<div class="rrow'+(o.id===sel?' sel':'')+' " id="rr-'+cid+'-'+o.id+'" onclick="selectRadio(\''+cid+'\',\''+o.id+'\')">'
-+'<div class="rdot" id="rd-'+cid+'-'+o.id+'"></div>'
-+'<div><div style="font-size:14px;font-weight:700">'+o.label+'</div>'+(o.desc?'<div style="font-size:13px;color:var(--text2);margin-top:2px">'+o.desc+'</div>':'')+'</div></div>';}).join('');updateRadioVis(cid,sel);}
+function radioGroup(cid,opts,sel){var el=document.getElementById(cid);el.innerHTML=opts.map(function(o){return'<div class="rrow'+(o.id===sel?' sel':'')+'" id="rr-'+cid+'-'+o.id+'" onclick="selectRadio(\''+cid+'\',\''+o.id+'\')">'+'<div class="rdot" id="rd-'+cid+'-'+o.id+'"></div>'+'<div><div style="font-size:14px;font-weight:700">'+o.label+'</div>'+(o.desc?'<div style="font-size:13px;color:var(--text2);margin-top:2px">'+o.desc+'</div>':'')+'</div></div>';}).join('');updateRadioVis(cid,sel);}
 function updateRadioVis(gid,id){var el=document.getElementById('rd-'+gid+'-'+id);if(el){el.style.background='var(--primary)';el.style.borderColor='var(--primary)';}var rr=document.getElementById('rr-'+gid+'-'+id);if(rr)rr.classList.add('sel');}
 function selectRadio(gid,id){var opts;if(gid==='goal-opts')opts=GOALS;else if(gid==='activity-opts')opts=ACTIVITY_LEVELS;else if(gid==='meals-opts')opts=MEALS_OPTIONS;else if(gid==='batch-opts')opts=BATCH_OPTIONS;if(!opts)return;opts.forEach(function(o){var rr=document.getElementById('rr-'+gid+'-'+o.id);var rd=document.getElementById('rd-'+gid+'-'+o.id);if(rr)rr.classList.toggle('sel',o.id===id);if(rd){rd.style.background=o.id===id?'var(--primary)':'transparent';rd.style.borderColor=o.id===id?'var(--primary)':'var(--border2)';}});if(gid==='goal-opts')P.goal=id;else if(gid==='activity-opts')P.activityId=id;else if(gid==='meals-opts')P.mealsPerDay=parseInt(id)||2;else if(gid==='batch-opts')P.batchMode=id;}
 function initDots(n,a){var d=document.getElementById('sdots');d.innerHTML=Array.from({length:n},function(_,i){return'<div class="dot'+(i<a?' done':i===a?' active':'')+'"></div>';}).join('');}
@@ -327,7 +325,7 @@ function buildWeekCal(){
   cal.innerHTML=prog.map(function(d,i){
     var cd=new Date(monday);cd.setDate(monday.getDate()+i);var dn=cd.getDate();
     var isT=i===dowToday;var isA=i===selectedDayIdx;var muscle=d.rest?'Repos':d.sessions[0].name.replace('Séance ','');
-    return'<div class="wcell'+(isA?' active':'')+(isT?' today-cell':'')+(d.rest?' rest-cell':'')+' " onclick="selectDay('+i+')"><div class="wday">'+d.dayName+'</div><div class="wdate">'+dn+'</div><div class="wmuscle">'+muscle+'</div></div>';
+    return'<div class="wcell'+(isA?' active':'')+(isT?' today-cell':'')+(d.rest?' rest-cell':'')+'" onclick="selectDay('+i+')"><div class="wday">'+d.dayName+'</div><div class="wdate">'+dn+'</div><div class="wmuscle">'+muscle+'</div></div>';
   }).join('');
   renderSessionArea(selectedDayIdx);
 }
@@ -344,7 +342,7 @@ function renderSessionDetail(di,si){
   sa.innerHTML='<div style="margin-bottom:16px"><span style="font-size:18px;font-weight:800;color:var(--text);display:block;margin-bottom:6px">'+s.name+'</span><span class="badge badge-blue">'+s.muscles+'</span></div>'+
   s.exercises.map(function(e,ei){
     var key=s.id+'-e'+ei;if(!logs.sets[key])logs.sets[key]=0;var lw=logs.weights_used[key]||'';var sh='';
-    for(var j=0;j<e.sets;j++){var done=logs.sets[key]>j;sh+='<div class="sbox'+(done?' done':'')+' " onclick="toggleSet(\''+key+'\','+j+','+e.rest+','+di+','+si+')">"+(done?'<i class="ti ti-check"></i> ':'')+'S'+(j+1)+'</div>';}
+    for(var j=0;j<e.sets;j++){var done=logs.sets[key]>j;sh+='<div class="sbox'+(done?' done':'')+'" onclick="toggleSet(\''+key+'\','+j+','+e.rest+','+di+','+si+')">'+(done?'<i class="ti ti-check"></i> ':'')+' S'+(j+1)+'</div>';}
     return'<div class="exo-block"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span class="exo-name">'+e.name+'</span><span class="badge badge-blue" style="background:var(--bg2);color:var(--primary)">'+e.sets+'×'+e.reps+'</span></div><div class="exo-tip">'+e.tip+'</div><div class="exo-sets">'+sh+'</div><div class="weight-input-row"><span>Charge :</span><input type="number" step="0.5" value="'+lw+'" placeholder="kg" id="wi-'+key+'" onchange="saveWeight(\''+key+'\')" inputmode="decimal"><span class="last-weight">'+(lw?'Précédent : '+lw+'kg':'—')+'</span></div></div>';
   }).join('')+'<button class="btn" style="margin-top:16px" onclick="completeSession('+di+','+si+')"><i class="ti ti-circle-check"></i> Terminer la séance</button>';
 }
@@ -377,7 +375,7 @@ function buildNutrWeek(){
   nutrW.innerHTML=Array.from({length:7},function(_,i){
     var cd=new Date(monday);cd.setDate(monday.getDate()+i);var dn=cd.getDate();
     var isT=i===dowToday;var isA=i===selectedNutrDay;
-    return'<div class="ncell'+(isA?' active':'')+(isT?' today-cell':'')+' " onclick="selectNutrDay('+i+')"><div class="nday">'+(['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'][i])+'</div><div class="ndate">'+dn+'</div></div>';
+    return'<div class="ncell'+(isA?' active':'')+(isT?' today-cell':'')+'" onclick="selectNutrDay('+i+')"><div class="nday">'+(['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'][i])+'</div><div class="ndate">'+dn+'</div></div>';
   }).join('');
   renderMealPlan(selectedNutrDay);
 }
@@ -443,6 +441,16 @@ function generateWeekPlan(){
   renderMealPlan(selectedNutrDay);
 }
 
+function selectMeal(cat, used, goal, forBatch){
+  if(typeof MEALS_DB === 'undefined') return null;
+  var pool = (MEALS_DB[cat] || []).filter(function(m){ return used.indexOf(m.id) === -1; });
+  if(goal === 'muscle') pool = pool.filter(function(m){ return m.calories >= 400; }).concat(pool.filter(function(m){ return m.calories < 400; }));
+  if(goal === 'cut')    pool = pool.filter(function(m){ return m.calories <= 450; }).concat(pool.filter(function(m){ return m.calories > 450; }));
+  if(forBatch) pool = pool.filter(function(m){ return m.batch; }).concat(pool.filter(function(m){ return !m.batch; }));
+  if(!pool.length) return null;
+  return pool[Math.floor(Math.random() * Math.min(pool.length, 3))];
+}
+
 function renderMealPlan(dayIdx){
   var days=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
   document.getElementById('nutr-day-label').textContent = days[dayIdx];
@@ -494,7 +502,7 @@ function renderWeightChart(){if(weightChart)weightChart.destroy();var ctx=docume
 function setTimer(s){timer.s=s;clearInterval(timer.iv);timer.running=false;updateTimerDisp();}
 function fmtT(s){var m=Math.floor(s/60);var sec=s%60;return(m<10?'0':'')+m+':'+(sec<10?'0':'')+sec;}
 function updateTimerDisp(){var el=document.getElementById('timer-disp');if(el)el.textContent=fmtT(timer.s);}
-function startTimer(){if(timer.running)return;timer.running=true;timer.iv=setInterval(function(){if(timer.s<=0){clearInterval(timer.iv);timer.running=false;var el=document.getElementById('timer-disp');if(el)el.textContent='✓ C\'est reparti !';return;}timer.s--;updateTimerDisp();},1000);}
+function startTimer(){if(timer.running)return;timer.running=true;timer.iv=setInterval(function(){if(timer.s<=0){clearInterval(timer.iv);timer.running=false;var el=document.getElementById('timer-disp');if(el)el.textContent="✓ C'est reparti !";return;}timer.s--;updateTimerDisp();},1000);}
 function pauseTimer(){clearInterval(timer.iv);timer.running=false;}
 function resetTimer(){clearInterval(timer.iv);timer.running=false;timer.s=90;updateTimerDisp();}
 function switchTab(t){var tabs=['dashboard','sport','nutrition','progress'];tabs.forEach(function(id){document.getElementById('panel-'+id).classList.remove('active');});document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',tabs[i]===t);});document.getElementById('panel-'+t).classList.add('active');if(t==='progress'){updateProgMetrics();renderWeightChart();renderSessionLog();}if(t==='sport'){buildWeekCal();}if(t==='nutrition'){buildNutrWeek();}if(t==='dashboard'){buildDashboard();}}
